@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KMViewController : UIViewController
+@interface KMViewController : UIViewController  <UIActionSheetDelegate>
+
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
 
 @end
