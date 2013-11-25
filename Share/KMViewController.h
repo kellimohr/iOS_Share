@@ -12,4 +12,6 @@
 
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 
+- (IBAction)openSession:(id)sender;
+
 @end
