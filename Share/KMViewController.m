@@ -209,6 +209,7 @@
     // You can specify the initial message text that will appear in the message
     // composer view controller.
     picker.body = @"Check out my image from Share.";
+    [picker addAttachmentData:UIImagePNGRepresentation(_imageView.image) typeIdentifier:(@"kUTTypePNG") filename:@"share-image.png"];
     
 	[self presentViewController:picker animated:YES completion:NULL];
 }
