@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-Ey-PVk">
-                                <rect key="frame" x="-6" y="145" width="326" height="254"/>
+                                <rect key="frame" x="-3" y="77" width="326" height="254"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="1tR-nw-7CG">
@@ -36,9 +36,15 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="JDI-e5-TSv"/>
-                                    <barButtonItem tag="2" systemItem="action" id="wBK-cA-R2B">
+                                    <barButtonItem title="SMS" id="Age-Q4-4I6">
                                         <connections>
-                                            <action selector="shareAction:" destination="vXZ-lx-hvc" id="frI-Kp-MRQ"/>
+                                            <action selector="showSMSPicker:" destination="vXZ-lx-hvc" id="xbM-29-yvf"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="I4k-jm-8lj"/>
+                                    <barButtonItem tag="2" systemItem="compose" id="wBK-cA-R2B">
+                                        <connections>
+                                            <action selector="showMailPicker:" destination="vXZ-lx-hvc" id="O97-js-WtP"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

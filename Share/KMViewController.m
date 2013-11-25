@@ -8,8 +8,9 @@
 
 #import "KMViewController.h"
 #import <Social/Social.h>
+#import <MessageUI/MessageUI.h>
 
-@interface KMViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface KMViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate,MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
 
 @end
 
@@ -125,11 +126,155 @@
             [shareViewController addURL:[NSURL URLWithString:@"http://facebook.com/shareapp"]];
             [self presentViewController:shareViewController animated:YES completion:nil];
             break;
-        case 2: // Activity
-            
+        case 2: // Email and Messages
+            //shareViewController =
             break;
     }
     
+}
+
+#pragma mark - Actions
+
+// -------------------------------------------------------------------------------
+//	showMailPicker:
+//  IBAction for the Compose Mail button.
+// -------------------------------------------------------------------------------
+- (IBAction)showMailPicker:(id)sender
+{
+    if ([MFMailComposeViewController canSendMail])
+        // The device can send email.
+    {
+        [self displayMailComposerSheet];
+    }
+    else
+        // The device can not send email.
+    {
+		NSLog(@"Device not configured to send mail.");
+    }
+}
+
+// -------------------------------------------------------------------------------
+//	showSMSPicker:
+//  IBAction for the Compose SMS button.
+// -------------------------------------------------------------------------------
+- (IBAction)showSMSPicker:(id)sender
+{
+    if ([MFMessageComposeViewController canSendText])
+        // The device can send email.
+    {
+        [self displaySMSComposerSheet];
+    }
+    else
+        // The device can not send email.
+    {
+		NSLog(@"Device not configured to send SMS.");
+    }
+}
+
+
+#pragma mark - Compose Mail/SMS
+
+// -------------------------------------------------------------------------------
+//	displayMailComposerSheet
+//  Displays an email composition interface inside the application.
+//  Populates all the Mail fields.
+// -------------------------------------------------------------------------------
+- (void)displayMailComposerSheet
+{
+	MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+	picker.mailComposeDelegate = self;
+	
+	[picker setSubject:@"Check out my image from Share!"];
+    
+    NSData *data = UIImagePNGRepresentation(_imageView.image);
+    [picker addAttachmentData:data mimeType:@"image/png" fileName:@"share-image"];
+    [self presentViewController:picker animated:YES completion:nil];
+	
+	// Fill out the email body text
+	NSString *emailBody = @"Hey!  Check out my image I sent from Share!";
+	[picker setMessageBody:emailBody isHTML:NO];
+	
+	[self presentViewController:picker animated:YES completion:NULL];
+}
+
+// -------------------------------------------------------------------------------
+//	displayMailComposerSheet
+//  Displays an SMS composition interface inside the application.
+// -------------------------------------------------------------------------------
+- (void)displaySMSComposerSheet
+{
+	MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
+	picker.messageComposeDelegate = self;
+    
+    // You can specify the initial message text that will appear in the message
+    // composer view controller.
+    picker.body = @"Check out my image from Share.";
+    
+	[self presentViewController:picker animated:YES completion:NULL];
+}
+
+
+#pragma mark - Delegate Methods
+
+// -------------------------------------------------------------------------------
+//	mailComposeController:didFinishWithResult:
+//  Dismisses the email composition interface when users tap Cancel or Send.
+//  Proceeds to update the message field with the result of the operation.
+// -------------------------------------------------------------------------------
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+
+	// Notifies users about errors associated with the interface
+	switch (result)
+	{
+		case MFMailComposeResultCancelled:
+			NSLog(@"Result: Mail sending canceled");
+			break;
+		case MFMailComposeResultSaved:
+			NSLog(@"Result: Mail saved");
+			break;
+		case MFMailComposeResultSent:
+			NSLog(@"Result: Mail sent");
+			break;
+		case MFMailComposeResultFailed:
+			NSLog(@"Result: Mail sending failed");
+			break;
+		default:
+			NSLog(@"Result: Mail not sent");
+			break;
+	}
+    
+	[self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+// -------------------------------------------------------------------------------
+//	messageComposeViewController:didFinishWithResult:
+//  Dismisses the message composition interface when users tap Cancel or Send.
+//  Proceeds to update the feedback message field with the result of the
+//  operation.
+// -------------------------------------------------------------------------------
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result
+{
+	// Notifies users about errors associated with the interface
+	switch (result)
+	{
+		case MessageComposeResultCancelled:
+			NSLog(@"Result: SMS sending canceled");
+			break;
+		case MessageComposeResultSent:
+			NSLog(@"Result: SMS sent");
+			break;
+		case MessageComposeResultFailed:
+			NSLog(@"Result: SMS sending failed");
+			break;
+		default:
+			NSLog(@"Result: SMS not sent");
+			break;
+	}
+    
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 

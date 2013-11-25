@@ -22,6 +22,7 @@
 		A3C195EB18428BDD007F8F44 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A3C195E918428BDD007F8F44 /* InfoPlist.strings */; };
 		A3C195ED18428BDD007F8F44 /* ShareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A3C195EC18428BDD007F8F44 /* ShareTests.m */; };
 		A3C195F71842C176007F8F44 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C195F61842C176007F8F44 /* Social.framework */; };
+		A3C195F91842C936007F8F44 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C195F81842C936007F8F44 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		A3C195EA18428BDD007F8F44 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A3C195EC18428BDD007F8F44 /* ShareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareTests.m; sourceTree = "<group>"; };
 		A3C195F61842C176007F8F44 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		A3C195F81842C936007F8F44 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C195F91842C936007F8F44 /* MessageUI.framework in Frameworks */,
 				A3C195F71842C176007F8F44 /* Social.framework in Frameworks */,
 				A3C195C418428BDD007F8F44 /* CoreGraphics.framework in Frameworks */,
 				A3C195C618428BDD007F8F44 /* UIKit.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		A3C195C018428BDD007F8F44 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A3C195F81842C936007F8F44 /* MessageUI.framework */,
 				A3C195F61842C176007F8F44 /* Social.framework */,
 				A3C195C118428BDD007F8F44 /* Foundation.framework */,
 				A3C195C318428BDD007F8F44 /* CoreGraphics.framework */,
