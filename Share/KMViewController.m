@@ -278,6 +278,10 @@
 	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (IBAction)getURL:(id)sender {
+    NSLog(@"Button Pressed");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"share://test_page/one?token=12345&domain=foo.com"]];
+}
 
 - (void)didReceiveMemoryWarning
 {
