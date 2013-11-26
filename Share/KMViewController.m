@@ -127,9 +127,6 @@
             [shareViewController addURL:[NSURL URLWithString:@"http://facebook.com/shareapp"]];
             [self presentViewController:shareViewController animated:YES completion:nil];
             break;
-        case 2: // Email and Messages
-            //shareViewController =
-            break;
     }
     
 }
@@ -189,11 +186,12 @@
     
     NSData *data = UIImagePNGRepresentation(_imageView.image);
     [picker addAttachmentData:data mimeType:@"image/png" fileName:@"share-image"];
+
     [self presentViewController:picker animated:YES completion:nil];
 	
 	// Fill out the email body text
-	NSString *emailBody = @"Hey!  Check out my image I sent from Share!";
-	[picker setMessageBody:emailBody isHTML:NO];
+	NSString *emailBody = @"Hey!  Check out my image I sent from Share! <a href='http://www.google.com'>Click Me!</a>";
+	[picker setMessageBody:emailBody isHTML:YES];
 	
 	[self presentViewController:picker animated:YES completion:NULL];
 }
@@ -209,7 +207,7 @@
     
     // You can specify the initial message text that will appear in the message
     // composer view controller.
-    picker.body = @"Check out my image from Share.";
+    picker.body = @"Check out my image from Share. http://www.google.com";
     [picker addAttachmentData:UIImagePNGRepresentation(_imageView.image) typeIdentifier:(@"kUTTypePNG") filename:@"share-image.png"];
     
 	[self presentViewController:picker animated:YES completion:NULL];
@@ -322,20 +320,41 @@
         {
           [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error)
              {
-                        NSLog(@"%@", [result objectForKey: @"name"]);
-                        }];
+                 NSLog(@"%@", [result objectForKey: @"name"]);
+             }];
             
+            NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+            [params setObject:@"Some Flower Picture" forKey:@"message"];
+            [params setObject:UIImagePNGRepresentation(_imageView.image) forKey:@"picture"];
             
-            //            [FBRequestConnection startForPostOpenGraphObjectWithType: @"post"
-            //                                                               title: @"Test Post Title"
-            //                                                               image: nil
-            //                                                                 url: nil
-            //                                                         description: @"Some Description"
-            //                                                    objectProperties: nil
-            //                                                   completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
-            //            {
-            //
-            //        }];
+            [FBRequestConnection startWithGraphPath:@"me/pics"
+                                         parameters:params
+                                         HTTPMethod:@"POST"
+                                  completionHandler:^(FBRequestConnection *connection,
+                                                      id result,
+                                                      NSError *error){
+                                      
+                                      if (!error)
+                                      {
+                                          NSLog(@"Successfully updated photo");
+                                      }
+                                      else
+                                      {
+                                          NSLog(@"Error: %@", error.localizedDescription);
+                                      }
+                                      
+                                  }];
+            
+//            [FBRequestConnection startForPostOpenGraphObjectWithType: @"post"
+//                                                               title: @"Test Photo"
+//                                                               image: nil
+//                                                                 url: nil
+//                                                         description: @"Get Photo from my app."
+//                                                    objectProperties: nil
+//                                                   completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
+//                        {
+//            
+//                    }];
             
             
             [FBRequestConnection startForPostStatusUpdate: @"Added this post via my iOS Share app." completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -354,6 +373,10 @@
         }
             break;
         case FBSessionStateClosed:
+        case FBSessionStateCreated:
+        case FBSessionStateCreatedTokenLoaded:
+        case FBSessionStateCreatedOpening:
+        case FBSessionStateOpenTokenExtended:
         case FBSessionStateClosedLoginFailed:
         {
             NSLog(@"Login Failed");
