@@ -11,6 +11,7 @@
 @interface KMViewController : UIViewController  <UIActionSheetDelegate>
 
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *schemeLabel;
 
 - (IBAction)openSession:(id)sender;
 

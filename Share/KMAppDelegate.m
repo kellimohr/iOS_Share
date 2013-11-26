@@ -51,6 +51,13 @@
     NSLog(@"url path: %@", [url path]);
     NSDictionary *dict = [self parseQueryString:[url query]];
     NSLog(@"query dict: %@", dict);
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"URL Scheme"
+                                                    message:[url absoluteString]
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
     return YES;
 }
 
